@@ -28,7 +28,10 @@ jobs:
         env:
           PACKAGE_NAME: "shifter-github-hosting-theme-sample"
           FILES_TO_ARCHIVE: "*.php *.md *.css *.txt *.png LICENSE phpcs.xml.dist inc/ js/ languages/ layouts/ template-parts/"
-        run: zip -r ${PACKAGE_NAME}.zip ${FILES_TO_ARCHIVE}
+        run: |
+          mkdir ${PACKAGE_NAME}
+          cp -r ${FILES_TO_ARCHIVE} ${PACKAGE_NAME}/
+          zip -r ${PACKAGE_NAME}.zip ${PACKAGE_NAME}
 
       - name: upload to github release
         uses: softprops/action-gh-release@v2
